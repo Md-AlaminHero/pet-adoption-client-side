@@ -1,36 +1,114 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import UseAuth from '../../../Hook/UseAuth';
 
 const Login = () => {
-    const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { signIn } = UseAuth();
+//   const { signIn } = UseAuth();
+  const navigate = useNavigate();
 
-    const onSubmit = data => {
-        console.log(data);
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const result = await signIn(data.email, data.password);
+      const user = result.user;
+      console.log(" Logged in:", user);
+
+
+    //   const res = await axios.post('https://twelveth-assignment-server.vercel.app/jwt', {
+    //     email: user.email
+    //   });
+      const res = await axios.post('http://localhost:3000/jwt', {
+        email: user.email
+      });
+
+      const token = res.data.token;
+      localStorage.setItem('access-token', token);
+      console.log(" JWT token saved");
+
+      Swal.fire({
+        title: 'Login Successful!',
+        text: 'Welcome back!',
+        icon: 'success',
+        confirmButtonText: 'Continue',
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+      navigate("/");
+    } catch (error) {
+      console.error(" Login error:", error);
+      Swal.fire("Please check email and password");
+    } finally {
+      setLoading(false);
     }
+  };
 
+  return (
+    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+      <div className='card-body'>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <fieldset className="fieldset">
+            <h1 className='text-5xl font-semibold'>Login !</h1>
 
-    return (
-        <div className="hero bg-base-200 min-h-screen">
-            <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                    <div className="card-body">
-                        <h1 className="text-5xl font-bold">SignIn now!</h1>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <fieldset className="fieldset">
-                                <label className="label">Email</label>
-                                <input type="email" {...register('email')} className="input" placeholder="Email" />
+            <label className="label">Email</label>
+            <input
+              type="email"
+              autoComplete="off"
+              {...register('email')}
+              className="input"
+              placeholder="Email"
+            />
 
-                                <label className="label">Password</label>
-                                <input type="password" {...register('password')} className="input" placeholder="Password" />
+            <label className="label">Password</label>
+            <input
+              type="password"
+              autoComplete="new-password"
+              {...register('password', {
+                required: true,
+                minLength: 6
+              })}
+              className="input"
+              placeholder="Password"
+            />
 
-                                <button className="btn btn-neutral mt-4">Sign In</button>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+            {errors.password?.type === "minLength" && (
+              <p role='alert' className='text-red-600'>
+                Password must be at least 6 characters
+              </p>
+            )}
+
+            {errors.password?.type === "required" && (
+              <p role='alert' className='text-red-600'>
+                Password is required
+              </p>
+            )}
+
+            <div><a className="link link-hover">Forgot password?</a></div>
+
+            <button className="btn bg-[#caeb66] text-black font-bold w-full mt-4" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </button>
+          </fieldset>
+
+          <p>
+            <small>
+              Don't have an account?
+              <Link to='/register' className='btn-link text-blue-700'> Register</Link>
+            </small>
+          </p>
+        </form>
+
+       
+      </div>
+    </div>
+  );
 };
 
 export default Login;
