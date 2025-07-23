@@ -63,7 +63,7 @@ const UserDashboard = () => {
             </NavLink>
 
             <NavLink
-              to="create-note"
+              to="my-pets"
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-2 rounded hover:bg-gray-700 ${
                   isActive ? "bg-gray-700" : ""
@@ -74,7 +74,7 @@ const UserDashboard = () => {
               My added pets
             </NavLink>
 
-            <NavLink
+            {/* <NavLink
               to="manage-notes"
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-2 rounded hover:bg-gray-700 ${
@@ -84,10 +84,10 @@ const UserDashboard = () => {
             >
               <FaStickyNote />
              Adoption Request
-            </NavLink>
+            </NavLink> */}
 
             <NavLink
-              to="study-materials"
+              to="create-donation-campaign"
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-2 rounded hover:bg-gray-700 ${
                   isActive ? "bg-gray-700" : ""
@@ -98,7 +98,7 @@ const UserDashboard = () => {
               Create Donation Campaign
             </NavLink>
             <NavLink
-              to="study-materials"
+              to="my-campaign"
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-2 rounded hover:bg-gray-700 ${
                   isActive ? "bg-gray-700" : ""
@@ -124,7 +124,7 @@ const UserDashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 bg-gray-100 overflow-auto w-full md:ml-64">
+      <main className="flex-1 p-6  overflow-auto w-full md:ml-64">
         <Outlet />
       </main>
     </div>

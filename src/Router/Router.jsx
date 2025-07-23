@@ -11,6 +11,11 @@ import AdminLayout from '../Layout/AdminLayout';
 import UserRoute from '../PrivateRoutes/UserRoute';
 import UserLayout from '../Layout/UserLayout';
 import AddPet from '../Pages/Dasboard/User/AddPet';
+import MyPets from '../Pages/Dasboard/User/MyPets';
+import UpdatePet from '../Pages/Dasboard/User/UpdatePet';
+import CreateDonationCampaign from '../Pages/Dasboard/User/CreateDonationCampaign ';
+import MyDonations from '../Pages/Dasboard/User/MyDonations';
+// import MyDonations from '../Pages/Dasboard/User/MyDonations';
 
 const Router = createBrowserRouter([
     {
@@ -73,6 +78,22 @@ const Router = createBrowserRouter([
                 path: "add-pet",
                 element: <AddPet />,
             },
+            {
+                path: "my-pets",
+                element: <MyPets />,
+            },
+            {
+                path: "update-pet/:id",
+                element: <UpdatePet />,
+            },
+            {
+                path: "create-donation-campaign",
+                element: <CreateDonationCampaign/>,
+            },
+            {
+                path: "my-campaign",
+                element: <MyDonations/>,
+            }
 
         ]
     }
