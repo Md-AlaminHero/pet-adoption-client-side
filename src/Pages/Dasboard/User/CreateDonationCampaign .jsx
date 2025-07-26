@@ -17,6 +17,7 @@ const CreateDonationCampaign = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
+    const pet_name = form.pet_name.value;
     const maxAmount = form.maxAmount.value;
     const lastDate = form.lastDate.value;
     const shortDesc = form.shortDesc.value;
@@ -36,6 +37,7 @@ const CreateDonationCampaign = () => {
       }
 
       const newCampaign = {
+        pet_name: pet_name,
         image: imageUrl,
         maxAmount: parseFloat(maxAmount),
         lastDate,
@@ -50,7 +52,7 @@ const CreateDonationCampaign = () => {
 
       await axiosSecure.post("/donation-campaigns", newCampaign);
       Swal.fire("Success", "Donation campaign created!", "success");
-      navigate("/dashboard/my-donation-campaigns");
+      navigate("/dashboard/user/my-campaign");
     } catch (err) {
       console.error(err);
       Swal.fire("Error", "Failed to create campaign", "error");
@@ -61,6 +63,17 @@ const CreateDonationCampaign = () => {
     <div className="max-w-2xl mx-auto px-4 py-10">
       <h2 className="text-2xl font-semibold mb-6">Create Donation Campaign</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block font-medium mb-1">Pet Name</label>
+          <input
+            type="text"
+            name="pet_name"
+            placeholder="Pet Name"
+            required
+            className="input input-bordered w-full"
+          />
+        </div>
+        
         <div>
           <label className="block font-medium mb-1">Pet Picture</label>
           <input
@@ -77,6 +90,7 @@ const CreateDonationCampaign = () => {
           <input
             type="number"
             name="maxAmount"
+            placeholder="Type Ammount"
             required
             className="input input-bordered w-full"
           />

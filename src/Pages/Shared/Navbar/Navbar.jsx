@@ -16,8 +16,9 @@ const Navbar = () => {
 
   const navItems = (
     <>
-      <li><NavLink to="/tutors">Tutors</NavLink></li>
-      <li><NavLink to="/sessions">Study Sessions</NavLink></li>
+      <li><NavLink to="/pet-listings">Pet Listing</NavLink></li>
+      <li><NavLink to="/donation-campaign">Donation Campaigns</NavLink></li>
+      <li><NavLink to="/about-us">About Us</NavLink></li>
     </>
   );
 
@@ -58,8 +59,8 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 shadow-sm px-4">
       <div className="navbar-start">
-        <Link to="/" className="btn btn-ghost text-xl">
-          {/* <StudyHubLogo /> */}
+        <Link to="/" className="text-xl">
+          <img className='w-12' src="https://i.postimg.cc/DfY7D9gv/pets.png" alt="paw-logo" />
         </Link>
       </div>
 
@@ -110,4 +111,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar;

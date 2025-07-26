@@ -15,6 +15,8 @@ import MyPets from '../Pages/Dasboard/User/MyPets';
 import UpdatePet from '../Pages/Dasboard/User/UpdatePet';
 import CreateDonationCampaign from '../Pages/Dasboard/User/CreateDonationCampaign ';
 import MyDonations from '../Pages/Dasboard/User/MyDonations';
+import EditDonation from '../Pages/Dasboard/User/EditDonation';
+import PetListing from '../Pages/Home/PetListing';
 // import MyDonations from '../Pages/Dasboard/User/MyDonations';
 
 const Router = createBrowserRouter([
@@ -25,6 +27,10 @@ const Router = createBrowserRouter([
             {
                 index: true,
                 Component: Home
+            },
+            {
+                path: '/pet-listings',
+                Component: PetListing
             }
         ]
     },
@@ -93,6 +99,10 @@ const Router = createBrowserRouter([
             {
                 path: "my-campaign",
                 element: <MyDonations/>,
+            },
+            {
+                path: "edit-donation/:id",
+                element: <EditDonation/>,
             }
 
         ]

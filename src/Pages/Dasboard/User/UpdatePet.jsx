@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import { useParams, useNavigate } from 'react-router';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import UseAxiosSecure from '../../../Hook/UseAxiosSecure';
 
 const categories = [
@@ -13,119 +16,65 @@ const categories = [
 const imgbbAPIKey = import.meta.env.VITE_image_upload_key;
 
 const UpdatePet = () => {
-  const { id } = useParams(); // get pet id from route params
+  const { id } = useParams();
   const navigate = useNavigate();
   const axiosSecure = UseAxiosSecure();
+  const [uploading, setUploading] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+  const [imageFile, setImageFile] = useState(null);
 
-  // State to hold all form data as controlled inputs
-  const [formData, setFormData] = useState({
-    name: '',
-    age: '',
-    category: null,
-    location: '',
-    shortDesc: '',
-    longDesc: '',
-    image: '', // url string or empty
+  // Validation Schema
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Name is required'),
+    age: Yup.string().matches(/^\d+$/, 'Only numbers allowed').required('Age is required'),
+    category: Yup.object().nullable().required('Category is required'),
+    location: Yup.string().required('Location is required'),
+    shortDesc: Yup.string().required('Short description is required'),
+    longDesc: Yup.string().required('Long description is required'),
   });
 
-  const [uploading, setUploading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      name: '',
+      age: '',
+      category: null,
+      location: '',
+      shortDesc: '',
+      longDesc: '',
+    },
+  });
 
-  // Fetch pet data on mount
-  useEffect(() => {
-    axiosSecure.get(`/pets/${id}`)
-      .then(res => {
-        const pet = res.data;
-        setFormData({
-          name: pet.name || '',
-          age: pet.age?.toString() || '',
-          category: categories.find(c => c.value === pet.category) || null,
-          location: pet.location || '',
-          shortDesc: pet.shortDesc || '',
-          longDesc: pet.longDesc || '',
-          image: pet.image || '',
-        });
-      })
-      .catch(() => {
-        Swal.fire('Error', 'Failed to load pet data', 'error');
-      });
-  }, [id, axiosSecure]);
+  const onSubmit = async (data) => {
+    let finalImageUrl = imageUrl;
 
-  // Handle controlled input change for text/number/textarea
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    // For age, allow only digits or empty string
-    if (name === 'age') {
-      if (value === '' || /^[0-9\b]+$/.test(value)) {
-        setFormData(prev => ({ ...prev, [name]: value }));
-      }
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
-  };
-
-  // Handle category select change
-  const handleCategoryChange = (selectedOption) => {
-    setFormData(prev => ({ ...prev, category: selectedOption }));
-  };
-
-  // Upload image to imgbb
-  const uploadImageToImgbb = async (file) => {
-    if (!file) return null;
-    setUploading(true);
-
-    const formDataImg = new FormData();
-    formDataImg.append('image', file);
-
-    try {
-      const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`, {
-        method: 'POST',
-        body: formDataImg,
-      });
-      const data = await res.json();
-      setUploading(false);
-
-      if (data.success) return data.data.url;
-      else {
-        Swal.fire('Error', 'Image upload failed', 'error');
-        return null;
-      }
-    } catch (error) {
-      setUploading(false);
-      Swal.fire('Error', 'Image upload error', 'error');
-      return null;
-    }
-  };
-
-  // Handle form submission
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    let imageUrl = formData.image;
-
-    // Check if user selected a new file (image upload)
-    if (formData.imageFile) {
-      const url = await uploadImageToImgbb(formData.imageFile);
-      if (!url) return; // stop if upload failed
-      imageUrl = url;
+    if (imageFile) {
+      const url = await uploadImageToImgbb(imageFile);
+      if (!url) return;
+      finalImageUrl = url;
     }
 
-    // Prepare payload for API
     const updatedPet = {
-      name: formData.name,
-      age: parseInt(formData.age) || 0,
-      category: formData.category?.value || '',
-      location: formData.location,
-      shortDesc: formData.shortDesc,
-      longDesc: formData.longDesc,
-      image: imageUrl,
+      name: data.name,
+      age: parseInt(data.age),
+      category: data.category.value,
+      location: data.location,
+      shortDesc: data.shortDesc,
+      longDesc: data.longDesc,
+      image: finalImageUrl,
     };
 
     try {
       const res = await axiosSecure.put(`/pets/${id}`, updatedPet);
       if (res.data.modifiedCount > 0) {
         Swal.fire('Success', 'Pet updated successfully!', 'success');
-        navigate('/dashboard/my-pets');
+        navigate('/dashboard/user/my-pets');
       } else {
         Swal.fire('Info', 'No changes detected', 'info');
       }
@@ -134,101 +83,88 @@ const UpdatePet = () => {
     }
   };
 
+  const uploadImageToImgbb = async (file) => {
+    setUploading(true);
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`, {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      setUploading(false);
+      return data.success ? data.data.url : null;
+    } catch (error) {
+      setUploading(false);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    axiosSecure.get(`/pets/${id}`).then((res) => {
+      const pet = res.data;
+      setValue('name', pet.name || '');
+      setValue('age', pet.age?.toString() || '');
+      setValue('location', pet.location || '');
+      setValue('shortDesc', pet.shortDesc || '');
+      setValue('longDesc', pet.longDesc || '');
+      setValue('category', categories.find((c) => c.value === pet.category) || null);
+      setImageUrl(pet.image || '');
+    });
+  }, [id, axiosSecure, setValue]);
+
   return (
     <div className="max-w-xl mx-auto p-6 shadow rounded-xl">
       <h2 className="text-2xl font-bold mb-6">Update Pet</h2>
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-        {/* Pet Name */}
-        <input
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Pet Name"
-          className="input input-bordered w-full"
-          required
-        />
+        {/* Name */}
+        <input {...register('name')} className="input input-bordered w-full" placeholder="Pet Name" />
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
-        {/* Pet Age */}
-        <input
-          name="age"
-          type="number"
-          value={formData.age}
-          onChange={handleChange}
-          placeholder="Pet Age"
-          className="input input-bordered w-full"
-          min={0}
-          required
-        />
+        {/* Age */}
+        <input {...register('age')} className="input input-bordered w-full" placeholder="Pet Age" />
+        {errors.age && <p className="text-red-500">{errors.age.message}</p>}
 
-        {/* Pet Category */}
-        <Select
-          options={categories}
-          value={formData.category}
-          onChange={handleCategoryChange}
-          placeholder="Select Category"
-          isClearable
-        />
-
-        {/* Pickup Location */}
-        <input
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          placeholder="Pickup Location"
-          className="input input-bordered w-full"
-          required
-        />
-
-        {/* Image Upload */}
-        <div>
-          {formData.image && (
-            <img
-              src={formData.image}
-              alt="Current pet"
-              className="w-32 h-32 object-cover mb-2 rounded"
+        {/* Category */}
+        <Controller
+          control={control}
+          name="category"
+          render={({ field }) => (
+            <Select
+              {...field}
+              options={categories}
+              placeholder="Select Category"
+              isClearable
             />
           )}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              if (file) {
-                setFormData(prev => ({ ...prev, imageFile: file }));
-              }
-            }}
-          />
-          {uploading && <p className="text-blue-500">Uploading image...</p>}
-        </div>
-
-        {/* Short Description */}
-        <textarea
-          name="shortDesc"
-          value={formData.shortDesc}
-          onChange={handleChange}
-          placeholder="Short Description"
-          className="textarea textarea-bordered w-full"
-          rows={3}
-          required
         />
+        {errors.category && <p className="text-red-500">{errors.category.message}</p>}
 
-        {/* Long Description */}
-        <textarea
-          name="longDesc"
-          value={formData.longDesc}
-          onChange={handleChange}
-          placeholder="Long Description"
-          className="textarea textarea-bordered w-full"
-          rows={5}
-          required
+        {/* Location */}
+        <input {...register('location')} className="input input-bordered w-full" placeholder="Location" />
+        {errors.location && <p className="text-red-500">{errors.location.message}</p>}
+
+        {/* Image Preview */}
+        {imageUrl && <img src={imageUrl} alt="Preview" className="w-32 h-32 object-cover rounded" />}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImageFile(e.target.files[0])}
         />
+        {uploading && <p className="text-blue-500">Uploading image...</p>}
 
-        <button
-          type="submit"
-          disabled={uploading}
-          className="btn btn-primary w-full mt-4"
-        >
+        {/* Short Desc */}
+        <textarea {...register('shortDesc')} className="textarea textarea-bordered w-full" placeholder="Short Description" />
+        {errors.shortDesc && <p className="text-red-500">{errors.shortDesc.message}</p>}
+
+        {/* Long Desc */}
+        <textarea {...register('longDesc')} className="textarea textarea-bordered w-full" placeholder="Long Description" />
+        {errors.longDesc && <p className="text-red-500">{errors.longDesc.message}</p>}
+
+        <button type="submit" disabled={uploading} className="btn btn-primary w-full mt-4">
           Update Pet
         </button>
       </form>

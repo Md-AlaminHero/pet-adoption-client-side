@@ -1,201 +1,126 @@
+// Frontend: MyDonations.jsx
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import UseAuth from "../../../Hook/UseAuth";
 import UseAxiosSecure from "../../../Hook/UseAxiosSecure";
 
 const MyDonations = () => {
-    const { user } = UseAuth();
-    const axiosSecure = UseAxiosSecure();
-    const navigate = useNavigate();
+  const { user } = UseAuth();
+  const axiosSecure = UseAxiosSecure();
+  const navigate = useNavigate();
 
-    const [campaigns, setCampaigns] = useState([]);
-    const [selectedDonators, setSelectedDonators] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+  const [campaigns, setCampaigns] = useState([]);
+  const [selectedDonators, setSelectedDonators] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
-    useEffect(() => {
-        if (!user?.email) return;
+  useEffect(() => {
+    if (!user?.email) return;
+    axiosSecure.get(`/donation-campaigns/user/${user.email}`).then((res) => {
+      setCampaigns(res.data);
+    });
+  }, [user]);
 
-        const fetchCampaigns = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const res = await axiosSecure.get(
-                    `/donation-campaigns/user/${encodeURIComponent(user.email)}`
-                );
-                setCampaigns(res.data);
-            } catch (err) {
-                console.error("Failed to fetch campaigns:", err);
-                setError("Failed to load campaigns");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchCampaigns();
-    }, [user?.email]); // Only re-run when user.email changes
-
-    const togglePause = async (id, paused) => {
-        try {
-            await axiosSecure.patch(`/donation-campaigns/${id}`, { paused: !paused });
-            setCampaigns((prev) =>
-                prev.map((c) => (c._id === id ? { ...c, paused: !paused } : c))
-            );
-        } catch (err) {
-            console.error("Failed to toggle pause:", err);
-        }
-    };
-
-    const openModal = async (id) => {
-        try {
-            const res = await axiosSecure.get(`/donation-campaigns/${id}/donators`);
-            setSelectedDonators(res.data);
-            setShowModal(true);
-        } catch (err) {
-            console.error("Failed to fetch donators:", err);
-            setSelectedDonators([]);
-            setShowModal(true);
-        }
-    };
-
-    return (
-        <div style={{ padding: "20px" }}>
-            <h2 style={{ fontSize: "20px", marginBottom: "20px" }}>
-                My Donation Campaigns
-            </h2>
-
-            {loading && <p>Loading campaigns...</p>}
-            {error && <p style={{ color: "red" }}>{error}</p>}
-
-            {!loading && !error && (
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                    <thead style={{ backgroundColor: "#333", color: "#fff" }}>
-                        <tr>
-                            <th style={{ padding: "8px", border: "1px solid #444" }}>
-                                Pet Name
-                            </th>
-                            <th style={{ padding: "8px", border: "1px solid #444" }}>
-                                Max Donation
-                            </th>
-                            <th style={{ padding: "8px", border: "1px solid #444" }}>
-                                Progress
-                            </th>
-                            <th style={{ padding: "8px", border: "1px solid #444" }}>
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {campaigns.length === 0 && (
-                            <tr>
-                                <td colSpan="4" style={{ textAlign: "center", padding: "8px" }}>
-                                    No donation campaigns found.
-                                </td>
-                            </tr>
-                        )}
-                        {campaigns.map((c) => {
-                            const percent = Math.min(
-                                (c.totalDonated / c.maxDonationAmount) * 100,
-                                100
-                            );
-                            return (
-                                <tr key={c._id}>
-                                    <td style={{ textAlign: "center", padding: "8px" }}>
-                                        {c.petName || "N/A"}
-                                    </td>
-                                    <td style={{ textAlign: "center", padding: "8px" }}>
-                                        ${c.maxDonationAmount}
-                                    </td>
-                                    <td style={{ padding: "8px" }}>
-                                        <div
-                                            style={{ backgroundColor: "#ccc", height: "8px", width: "100%" }}
-                                        >
-                                            <div
-                                                style={{
-                                                    backgroundColor: "#4caf50",
-                                                    width: `${percent}%`,
-                                                    height: "100%",
-                                                }}
-                                            />
-                                        </div>
-                                        <small>
-                                            ${c.totalDonated} / ${c.maxDonationAmount}
-                                        </small>
-                                    </td>
-                                    <td style={{ textAlign: "center", padding: "8px" }}>
-                                        <button onClick={() => navigate(`/dashboard/edit-donation/${c._id}`)}>
-                                            Edit
-                                        </button>{" "}
-                                        <button onClick={() => togglePause(c._id, c.paused)}>
-                                            {c.paused ? "Unpause" : "Pause"}
-                                        </button>{" "}
-                                        <button onClick={() => openModal(c._id)}>View Donators</button>
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            )}
-
-            {/* Simple Modal */}
-            {showModal && (
-                <div
-                    style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100vw",
-                        height: "100vh",
-                        backgroundColor: "rgba(0,0,0,0.5)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        zIndex: 1000,
-                    }}
-                >
-                    <div
-                        style={{
-                            backgroundColor: "#fff",
-                            padding: "20px",
-                            borderRadius: "6px",
-                            width: "300px",
-                            position: "relative",
-                        }}
-                    >
-                        <h3>Donators</h3>
-                        <button
-                            onClick={() => setShowModal(false)}
-                            style={{
-                                position: "absolute",
-                                top: "10px",
-                                right: "10px",
-                                cursor: "pointer",
-                                background: "none",
-                                border: "none",
-                                fontSize: "16px",
-                            }}
-                            aria-label="Close modal"
-                        >
-                            &times;
-                        </button>
-                        <ul style={{ marginTop: "10px", maxHeight: "300px", overflowY: "auto" }}>
-                            {selectedDonators.length > 0 ? (
-                                selectedDonators.map((d, i) => (
-                                    <li key={i}>
-                                        <strong>{d.name}</strong> donated ${d.amount}
-                                    </li>
-                                ))
-                            ) : (
-                                <li>No donations yet.</li>
-                            )}
-                        </ul>
-                    </div>
-                </div>
-            )}
-        </div>
+  const togglePause = async (id, paused) => {
+    await axiosSecure.patch(`/donation-campaigns/${id}`, { paused: !paused });
+    setCampaigns((prev) =>
+      prev.map((c) => (c._id === id ? { ...c, paused: !paused } : c))
     );
+  };
+
+  const openModal = async (id) => {
+    const res = await axiosSecure.get(`/donation-campaigns/${id}/donators`);
+    setSelectedDonators(res.data);
+    setShowModal(true);
+  };
+
+  return (
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-4">My Donation Campaigns</h2>
+      <div className="overflow-x-auto">
+        <table className="table-auto w-full border">
+          <thead className="bg-gray-800 text-white">
+            <tr>
+              <th className="p-2 border">Pet Name</th>
+              <th className="p-2 border">Max Donation</th>
+              <th className="p-2 border">Progress</th>
+              <th className="p-2 border">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {campaigns.map((c) => {
+              const percent = Math.min(
+                (c.totalDonated / c.maxDonationAmount) * 100,
+                100
+              );
+              return (
+                <tr key={c._id}>
+                  <td className="p-2 border text-center">{c.pet_name || "N/A"}</td>
+                  <td className="p-2 border text-center">${c.maxAmount}</td>
+                  <td className="p-2 border">
+                    <div className="w-full bg-gray-300 h-2 rounded">
+                      <div
+                        className="bg-green-500 h-2 rounded"
+                        style={{ width: `${percent}%` }}
+                      ></div>
+                    </div>
+                    <small>
+                      ${c.maxAmount} / ${c.maxAmount}
+                    </small>
+                  </td>
+                  <td className="p-2 border text-center space-x-2">
+                    <button
+                      className="bg-blue-500 text-white px-2 py-1 rounded"
+                      onClick={() => navigate(`/dashboard/user/edit-donation/${c._id}`)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="bg-yellow-500 text-white px-2 py-1 rounded"
+                      onClick={() => togglePause(c._id, c.paused)}
+                    >
+                      {c.paused ? "Unpause" : "Pause"}
+                    </button>
+                    <button
+                      className="bg-gray-700 text-white px-2 py-1 rounded"
+                      onClick={() => openModal(c._id)}
+                    >
+                      View Donators
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-4 rounded w-80 relative">
+            <button
+              className="absolute top-2 right-2 text-red-500"
+              onClick={() => setShowModal(false)}
+            >
+              X
+            </button>
+            <h3 className="text-lg font-bold mb-2">Donators</h3>
+            <ul className="space-y-1">
+              {selectedDonators.length > 0 ? (
+                selectedDonators.map((d, i) => (
+                  <li key={i}>
+                    <strong>{d.name}</strong> donated ${d.amount}
+                  </li>
+                ))
+              ) : (
+                <li>No donations yet.</li>
+              )}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default MyDonations;
