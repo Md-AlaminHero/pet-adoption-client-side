@@ -38,8 +38,7 @@ const PetDetails = () => {
 
         try {
             await axiosInstance.post("/adoption-request", adoptionData);
-            // alert("Adoption request submitted!");
-            Swal.fire("Success", "Donation campaign created!", "success");
+            Swal.fire("Success", "Adoption Request Send Successfully", "success");
             setIsOpen(false);
         } catch (err) {
             console.error(err);
@@ -68,11 +67,11 @@ const PetDetails = () => {
                         <form onSubmit={handleAdoptSubmit} className="space-y-4">
                             <div>
                                 <label className="label">Your Name</label>
-                                <input type="text" value={user.displayName} disabled className="input input-bordered w-full" />
+                                <input type="text" value={user?.displayName} disabled className="input input-bordered w-full" />
                             </div>
                             <div>
                                 <label className="label">Email</label>
-                                <input type="email" value={user.email} disabled className="input input-bordered w-full" />
+                                <input type="email" value={user?.email} disabled className="input input-bordered w-full" />
                             </div>
                             <div>
                                 <label className="label">Phone</label>

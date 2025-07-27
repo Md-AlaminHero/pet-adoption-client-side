@@ -17,7 +17,7 @@ const Navbar = () => {
   const navItems = (
     <>
       <li><NavLink to="/pet-listings">Pet Listing</NavLink></li>
-      <li><NavLink to="/donation-campaign">Donation Campaigns</NavLink></li>
+      <li><NavLink to="/donation-campaigns">Donation Campaigns</NavLink></li>
       <li><NavLink to="/about-us">About Us</NavLink></li>
     </>
   );
