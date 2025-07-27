@@ -4,6 +4,7 @@ import { Dialog } from "@headlessui/react";
 import UseAuth from "../../Hook/UseAuth";
 import UseAxios from "../../Hook/UseAxios";
 import Swal from "sweetalert2";
+import LoadingSkeleton from "../Shared/LoadingSkeleton/LoadingSkeleton";
 
 const PetDetails = () => {
     const axiosInstance = UseAxios();
@@ -46,7 +47,7 @@ const PetDetails = () => {
         }
     };
 
-    if (!pet) return <div className="text-center mt-10">Loading...</div>;
+    if (!pet) return <LoadingSkeleton></LoadingSkeleton>;
 
     return (
         <div className="max-w-3xl mx-auto p-4">

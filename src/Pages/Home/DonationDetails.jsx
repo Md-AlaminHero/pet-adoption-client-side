@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import UseAxios from '../../Hook/UseAxios';
+import LoadingSkeleton from '../Shared/LoadingSkeleton/LoadingSkeleton';
 
 
 const axiosInstance = UseAxios();
@@ -85,7 +86,7 @@ const DonationDetails = () => {
         axiosInstance.get(`/donation-campaigns/recommended/${id}`).then((res) => setRec(res.data));
     }, [id]);
 
-    if (!campaign) return <div>Loading...</div>;
+    if (!campaign) return <LoadingSkeleton></LoadingSkeleton>;
 
     console.log(recommended);
     return (
