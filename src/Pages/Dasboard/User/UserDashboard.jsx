@@ -108,17 +108,7 @@ const UserDashboard = () => {
               <FaFolderOpen />
               My Donation Campaigns
             </NavLink>
-            <NavLink
-              to="study-materials"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded hover:bg-gray-700 ${
-                  isActive ? "bg-gray-700" : ""
-                }`
-              }
-            >
-              <FaFolderOpen />
-             My Donations
-            </NavLink>
+            
           </nav>
         </div>
       </aside>

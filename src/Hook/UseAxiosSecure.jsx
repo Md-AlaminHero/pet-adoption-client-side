@@ -28,7 +28,7 @@ import axios from 'axios';
 
 const UseAxiosSecure = () => {
     const axiosSecure = axios.create({
-        baseURL: 'http://localhost:3000',
+        baseURL: 'https://pet-adoption-server-gilt.vercel.app/',
     });
 
     axiosSecure.interceptors.request.use((config) => {

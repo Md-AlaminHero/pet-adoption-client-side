@@ -31,7 +31,7 @@ const SocialLogin = () => {
     //  Get JWT Token from backend
     const getJWTToken = async (email) => {
         try {
-            const res = await axios.post('http://localhost:3000/jwt', { email });
+            const res = await axios.post('https://pet-adoption-server-gilt.vercel.app/jwt', { email });
             localStorage.setItem('access-token', res.data.token);
             console.log(' Token received and saved');
         } catch (err) {

@@ -21,6 +21,10 @@ import PetDetails from '../Pages/Home/PetDetails';
 import DonationCampaigns from '../Pages/Home/DonationCampaigns';
 import DonationDetails from '../Pages/Home/DonationDetails';
 import AboutUs from '../Pages/Home/AboutUs';
+import AllUsers from '../Pages/Dasboard/Admin/AllUsers';
+import AdminPetManager from '../Pages/Dasboard/Admin/AdminPetManager ';
+import AdminCampaignManager from '../Pages/Dasboard/Admin/AdminCampaignManager ';
+
 
 const Router = createBrowserRouter([
     {
@@ -80,7 +84,15 @@ const Router = createBrowserRouter([
         children: [
             {
                 path: "users",
-                // element: <AdminViewUsers />
+                element: <AllUsers></AllUsers>
+            },
+            {
+                path: 'pets',
+                element: <AdminPetManager></AdminPetManager>
+            },
+            {
+                path: "campaigns",
+                element: <AdminCampaignManager></AdminCampaignManager>
             },
 
 

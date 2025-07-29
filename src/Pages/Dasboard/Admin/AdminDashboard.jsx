@@ -62,7 +62,7 @@ const AdminDashboard = () => {
             </NavLink>
 
             <NavLink
-              to="sessions"
+              to="/dashboard/admin/pets"
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-2 rounded hover:bg-blue-700 ${
                   isActive ? "bg-blue-700" : ""
@@ -70,11 +70,11 @@ const AdminDashboard = () => {
               }
             >
               <FaChalkboardTeacher />
-              View All Study Sessions
+              View All pets
             </NavLink>
 
             <NavLink
-              to="materials"
+              to="/dashboard/admin/campaigns"
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-2 rounded hover:bg-blue-700 ${
                   isActive ? "bg-blue-700" : ""
@@ -82,7 +82,7 @@ const AdminDashboard = () => {
               }
             >
               <FaFolderOpen />
-              View All Materials
+              View All Campaigns
             </NavLink>
           </nav>
         </div>
