@@ -20,6 +20,7 @@ import PetList from '../Pages/Home/PetList';
 import PetDetails from '../Pages/Home/PetDetails';
 import DonationCampaigns from '../Pages/Home/DonationCampaigns';
 import DonationDetails from '../Pages/Home/DonationDetails';
+import AboutUs from '../Pages/Home/AboutUs';
 
 const Router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ const Router = createBrowserRouter([
             {
                 path: '/donation-campaigns/:id',
                 Component: DonationDetails
+            },
+            {
+                path: '/about-us',
+                Component: AboutUs
             }
         ]
     },
