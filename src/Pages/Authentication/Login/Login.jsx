@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import UseAuth from '../../../Hook/UseAuth';
+import SocialLogin from '../SocialLogin/SocialLofin';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -105,7 +106,7 @@ const Login = () => {
           </p>
         </form>
 
-       
+       <SocialLogin></SocialLogin>
       </div>
     </div>
   );
