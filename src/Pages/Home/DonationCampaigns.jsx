@@ -70,7 +70,7 @@ const DonationCampaigns = () => {
                                     }}
                                 ></div>
                             </div>
-                            <Link to={`/donation-campaigns/${campaign._id}`}><button className="btn btn-sm btn-primary">View Details</button></Link>
+                            <Link to={`/donation-campaigns/${campaign._id}`}><button className="bg-transparent border border-teal-500 text-teal-600 px-6 py-3 rounded-lg hover:bg-teal-500 hover:text-white cursor-pointer">View Details</button></Link>
                         </div>
                     </div>
                 ))}

@@ -109,9 +109,10 @@ const PetList = () => {
                                 <h2 className="card-title">{pet.name}</h2>
                                 <p>Age: {pet.age}</p>
                                 <p>Location: {pet.location}</p>
+                                <p>Short-Description: {pet.shortDesc}</p>
                             </div>
                             <div className="card-actions justify-end mt-4">
-                                <Link to={`/pet-details/${pet._id}`} className="btn btn-primary">
+                                <Link to={`/pet-details/${pet._id}`} className="bg-teal-500 border border-teal-500 text-white px-6 py-3 rounded-lg hover:bg-transparent hover:text-teal-600 cursor-pointer">
                                     View Details
                                 </Link>
                             </div>

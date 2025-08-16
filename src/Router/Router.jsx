@@ -25,6 +25,7 @@ import AllUsers from '../Pages/Dasboard/Admin/AllUsers';
 import AdminPetManager from '../Pages/Dasboard/Admin/AdminPetManager ';
 import AdminCampaignManager from '../Pages/Dasboard/Admin/AdminCampaignManager ';
 import ContactUs from '../Pages/Home/ContactUs';
+import PetGallery from '../Pages/Home/PetGallery';
 
 
 const Router = createBrowserRouter([
@@ -39,6 +40,10 @@ const Router = createBrowserRouter([
             {
                 path: '/pet-listings',
                 Component: PetList
+            },
+            {
+                path: '/pet-gallery',
+                Component: PetGallery
             },
             {
                 path: '/pet-details/:id',

@@ -21,11 +21,13 @@ const Navbar = () => {
           <li><NavLink to='/'>Home</NavLink></li>
           <li><NavLink to="/pet-listings">Pet Listing</NavLink></li>
           <li><NavLink to="/donation-campaigns">Donation Campaigns</NavLink></li>
+          <li><NavLink to='/pet-gallery'>Pet Gallery</NavLink></li>
           <li><NavLink to="/about-us">About Us</NavLink></li>
           <li><NavLink to='/contact-us'>Contact</NavLink></li>
 
         </> : <>
           <li><NavLink to='/'>Home</NavLink></li>
+          <li><NavLink to='/pet-gallery'>Pet Gallery</NavLink></li>
           <li><NavLink to='/about-us'>About Us</NavLink></li>
           <li><NavLink to='/contact-us'>Contact</NavLink></li>
         </>
