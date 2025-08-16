@@ -28,7 +28,7 @@ const AboutUs = () => {
 
                     {/* Values */}
                     <div className="p-6 rounded-2xl shadow hover:shadow-xl transition">
-                        <h2 className="text-2xl font-semibold text-purple-600 mb-2">Our Values</h2>
+                        <h2 className="text-2xl font-semibold text-blue-600 mb-2">Our Values</h2>
                         <ul className="list-disc list-inside text-gray-600 text-left">
                             <li>Compassion</li>
                             <li>Responsibility</li>

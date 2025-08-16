@@ -8,6 +8,7 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import ToggleTheme from "../../Shared/ToggleTheme/ToggleTheme";
 
 const AdminDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -24,9 +25,8 @@ const AdminDashboard = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed z-40 inset-y-0 left-0 w-64 bg-blue-900 text-white transform ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 md:relative md:flex transition-transform duration-300`}
+        className={`fixed z-40 inset-y-0 left-0 w-64 bg-blue-900 text-white transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0 md:relative md:flex transition-transform duration-300`}
       >
         <div className="flex flex-col h-full">
           {/* Close Button for Mobile */}
@@ -37,23 +37,24 @@ const AdminDashboard = () => {
           </div>
 
           <nav className="flex-1 p-4 space-y-4">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded hover:bg-blue-700 ${
-                  isActive ? "bg-blue-700" : ""
-                }`
-              }
-            >
-              <FaHome />
-              Home
-            </NavLink>
+            <div className="flex justify-between items-center">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-2 rounded hover:bg-blue-700 ${isActive ? "bg-blue-700" : ""
+                  }`
+                }
+              >
+                <FaHome />
+                Home
+              </NavLink>
+              <ToggleTheme></ToggleTheme>
+            </div>
 
             <NavLink
               to="/dashboard/admin/users"
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded hover:bg-blue-700 ${
-                  isActive ? "bg-blue-700" : ""
+                `flex items-center gap-3 px-4 py-2 rounded hover:bg-blue-700 ${isActive ? "bg-blue-700" : ""
                 }`
               }
             >
@@ -64,8 +65,7 @@ const AdminDashboard = () => {
             <NavLink
               to="/dashboard/admin/pets"
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded hover:bg-blue-700 ${
-                  isActive ? "bg-blue-700" : ""
+                `flex items-center gap-3 px-4 py-2 rounded hover:bg-blue-700 ${isActive ? "bg-blue-700" : ""
                 }`
               }
             >
@@ -76,8 +76,7 @@ const AdminDashboard = () => {
             <NavLink
               to="/dashboard/admin/campaigns"
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded hover:bg-blue-700 ${
-                  isActive ? "bg-blue-700" : ""
+                `flex items-center gap-3 px-4 py-2 rounded hover:bg-blue-700 ${isActive ? "bg-blue-700" : ""
                 }`
               }
             >

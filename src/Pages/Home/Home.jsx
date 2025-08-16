@@ -4,6 +4,7 @@ import Banner from './Banner';
 import PetCategories from './PageCategories';
 import AdoptionGuidelines from './AdoptionGuidelines';
 import SuccessStories from './SuccessStories';
+import PetAdoptionHome from './PetAdoptionHome';
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             <PetCategories></PetCategories>
             <AdoptionGuidelines></AdoptionGuidelines>
             <SuccessStories></SuccessStories>
+            <PetAdoptionHome></PetAdoptionHome>
         </div>
     );
 };

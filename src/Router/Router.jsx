@@ -24,6 +24,7 @@ import AboutUs from '../Pages/Home/AboutUs';
 import AllUsers from '../Pages/Dasboard/Admin/AllUsers';
 import AdminPetManager from '../Pages/Dasboard/Admin/AdminPetManager ';
 import AdminCampaignManager from '../Pages/Dasboard/Admin/AdminCampaignManager ';
+import ContactUs from '../Pages/Home/ContactUs';
 
 
 const Router = createBrowserRouter([
@@ -41,7 +42,9 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/pet-details/:id',
-                Component: PetDetails
+                element: <PrivateRoute>
+                    <PetDetails></PetDetails>
+                </PrivateRoute>
             },
             {
                 path: '/donation-campaigns',
@@ -54,6 +57,10 @@ const Router = createBrowserRouter([
             {
                 path: '/about-us',
                 Component: AboutUs
+            },
+            {
+                path: '/contact-us',
+                Component: ContactUs
             }
         ]
     },

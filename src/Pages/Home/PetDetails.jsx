@@ -64,22 +64,22 @@ const PetDetails = () => {
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="fixed z-50 inset-0">
                 <div className="flex items-center justify-center min-h-screen bg-black bg-opacity-30">
                     <Dialog.Panel className=" rounded-lg p-6 max-w-md w-full space-y-4">
-                        <Dialog.Title className="text-xl font-semibold">Adopt {pet.name}</Dialog.Title>
+                        <Dialog.Title className="text-2xl text-center text-teal-600 font-semibold">Adopt {pet.name}</Dialog.Title>
                         <form onSubmit={handleAdoptSubmit} className="space-y-4">
                             <div>
-                                <label className="label">Your Name</label>
+                                <label className="label text-teal-400">Your Name</label>
                                 <input type="text" value={user?.displayName} disabled className="input input-bordered w-full" />
                             </div>
                             <div>
-                                <label className="label">Email</label>
+                                <label className="label text-teal-400">Email</label>
                                 <input type="email" value={user?.email} disabled className="input input-bordered w-full" />
                             </div>
                             <div>
-                                <label className="label">Phone</label>
+                                <label className="label text-teal-400">Phone</label>
                                 <input type="tel" required className="input input-bordered w-full" value={phone} onChange={(e) => setPhone(e.target.value)} />
                             </div>
                             <div>
-                                <label className="label">Address</label>
+                                <label className="label text-teal-400">Address</label>
                                 <textarea required className="textarea textarea-bordered w-full" value={address} onChange={(e) => setAddress(e.target.value)} />
                             </div>
                             <div className="flex justify-end gap-4">

@@ -4,7 +4,7 @@ import { FadeLoader } from 'react-spinners';
 const LoadingSpinner = () => {
     return (
         <div className='text-center h-screen flex items-center justify-center'>
-            <FadeLoader color='#006A71'/>
+            <FadeLoader color='#E1AA36'/>
         </div>
     );
 };

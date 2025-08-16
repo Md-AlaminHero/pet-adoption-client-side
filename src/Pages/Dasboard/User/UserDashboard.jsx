@@ -9,6 +9,7 @@ import {
   FaFolderOpen,
   FaTimes,
 } from "react-icons/fa";
+import ToggleTheme from "../../Shared/ToggleTheme/ToggleTheme";
 
 const UserDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -38,7 +39,8 @@ const UserDashboard = () => {
           </div>
 
           <nav className="flex-1 p-4 space-y-4">
-            <NavLink
+            <div className="flex justify-between items-center">
+              <NavLink
               to="/"
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-2 rounded hover:bg-gray-700 ${
@@ -49,6 +51,8 @@ const UserDashboard = () => {
               <FaHome />
               Home
             </NavLink>
+            <ToggleTheme></ToggleTheme>
+            </div>
 
             <NavLink
               to="add-pet"
