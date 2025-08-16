@@ -26,6 +26,7 @@ import AdminPetManager from '../Pages/Dasboard/Admin/AdminPetManager ';
 import AdminCampaignManager from '../Pages/Dasboard/Admin/AdminCampaignManager ';
 import ContactUs from '../Pages/Home/ContactUs';
 import PetGallery from '../Pages/Home/PetGallery';
+import UserProfile from '../Pages/Dasboard/User/UserProfile';
 
 
 const Router = createBrowserRouter([
@@ -123,6 +124,10 @@ const Router = createBrowserRouter([
             </PrivateRoute>
         ),
         children: [
+            {
+                path: 'profile',
+                Component: UserProfile
+            },
             {
                 path: "add-pet",
                 element: <AddPet />,

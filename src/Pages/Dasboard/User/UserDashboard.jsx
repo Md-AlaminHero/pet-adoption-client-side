@@ -5,10 +5,10 @@ import {
   FaHome,
   FaBookOpen,
   FaPlusCircle,
-  FaStickyNote,
   FaFolderOpen,
   FaTimes,
 } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 import ToggleTheme from "../../Shared/ToggleTheme/ToggleTheme";
 
 const UserDashboard = () => {
@@ -53,6 +53,18 @@ const UserDashboard = () => {
             </NavLink>
             <ToggleTheme></ToggleTheme>
             </div>
+
+            <NavLink
+              to="profile"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-2 rounded hover:bg-gray-700 ${
+                  isActive ? "bg-gray-700" : ""
+                }`
+              }
+            >
+              <CgProfile />
+              Profile
+            </NavLink>
 
             <NavLink
               to="add-pet"
