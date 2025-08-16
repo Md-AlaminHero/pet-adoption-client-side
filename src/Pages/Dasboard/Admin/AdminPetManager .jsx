@@ -12,7 +12,7 @@ const AdminPetManager = () => {
 
   const fetchPets = async () => {
     try {
-      const res = await axiosSecure.get('/pets');
+      const res = await axiosSecure.get('/all-pets');
       console.log('Pets:', res.data);
       if (Array.isArray(res.data)) {
         setPets(res.data);
@@ -57,7 +57,7 @@ const AdminPetManager = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-700">
+    <div className="p-4 bg-gray-500">
       <h2 className="text-2xl font-bold mb-4">Manage All Pets</h2>
       <table className="table w-full">
         <thead>
@@ -124,13 +124,13 @@ const AdminPetManager = () => {
                   ) : (
                     <>
                       <button
-                        className="btn btn-xs btn-info"
+                        className="btn btn-xs bg-blue-600"
                         onClick={() => setEditingPet(pet)}
                       >
                         Edit
                       </button>
                       <button
-                        className="btn btn-xs btn-error"
+                        className="btn btn-xs bg-teal-500"
                         onClick={() => deletePet(pet._id)}
                       >
                         Delete

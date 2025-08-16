@@ -25,7 +25,7 @@ const Login = () => {
     //   const res = await axios.post('https://twelveth-assignment-server.vercel.app/jwt', {
     //     email: user.email
     //   });
-      const res = await axios.post('https://pet-adoption-server-gilt.vercel.app/jwt', {
+      const res = await axios.post('https://pet-adoption-server-side-three.vercel.app/jwt', {
         email: user.email
       });
 
