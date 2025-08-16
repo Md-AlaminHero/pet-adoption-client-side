@@ -33,7 +33,7 @@ const AllUsers = () => {
   }, []);
 
   return (
-    <div className="overflow-x-auto p-6 bg-gray-700">
+    <div className="overflow-x-auto p-6 bg-gray-500">
       <h2 className="text-2xl font-bold mb-4">All Users</h2>
 
       <table className="table w-full">
@@ -65,7 +65,7 @@ const AllUsers = () => {
               <td>
                 <button
                   className={`btn btn-xs ${
-                    user.role === 'admin' ? 'btn-error' : 'btn-primary'
+                    user.role === 'admin' ? 'btn bg-teal-500' : 'btn-primary'
                   }`}
                   onClick={() => toggleAdmin(user)}
                 >

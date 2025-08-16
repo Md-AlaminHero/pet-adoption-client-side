@@ -5,7 +5,7 @@ const AboutAdoption = () => {
         <div className="max-w-6xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             {/* Image Section */}
             <div className="flex justify-center">
-                <img
+                <img data-aos="zoom-in" data-aos-duration="1600"
                     src="https://i.postimg.cc/yNWZJB4m/cats-8105667-1280.jpg"
                     alt="Pet Adoption"
                     className="rounded-2xl shadow-lg w-full max-w-md object-cover"
@@ -13,7 +13,7 @@ const AboutAdoption = () => {
             </div>
 
             {/* Text Section */}
-            <div className="space-y-6">
+            <div data-aos="zoom-in-up" data-aos-duration="1600" className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold">
                     Why Adopt a Pet?
                 </h2>

@@ -50,7 +50,7 @@ const AdminCampaignManager = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-700">
+    <div className="p-4 bg-gray-500">
       <h2 className="text-2xl font-bold mb-4">Manage Donation Campaigns</h2>
       <table className="table w-full">
         <thead>
@@ -157,7 +157,7 @@ const AdminCampaignManager = () => {
                         Edit
                       </button>
                       <button
-                        className="btn btn-xs btn-error"
+                        className="btn btn-xs bg-teal-500"
                         onClick={() => deleteCampaign(camp._id)}
                       >
                         Delete

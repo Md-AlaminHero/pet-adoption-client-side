@@ -28,6 +28,7 @@ import ContactUs from '../Pages/Home/ContactUs';
 import PetGallery from '../Pages/Home/PetGallery';
 import UserProfile from '../Pages/Dasboard/User/UserProfile';
 import ErrorPage from '../Pages/Shared/ErrorPage/ErrorPage';
+import AdminProfile from '../Pages/Dasboard/Admin/AdminProfile';
 
 
 const Router = createBrowserRouter([
@@ -96,6 +97,10 @@ const Router = createBrowserRouter([
             </PrivateRoute>
         ),
         children: [
+            {
+                path: 'profile',
+                Component: AdminProfile
+            },
             {
                 path: "users",
                 element: <AllUsers></AllUsers>
