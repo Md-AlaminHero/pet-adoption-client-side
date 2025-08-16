@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, Outlet } from "react-router"; // ✅ use react-router-dom
+import { NavLink, Outlet } from "react-router";
 import {
   FaBars,
   FaHome,
@@ -73,18 +73,6 @@ const UserDashboard = () => {
               <FaPlusCircle />
               My added pets
             </NavLink>
-
-            {/* <NavLink
-              to="manage-notes"
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded hover:bg-gray-700 ${
-                  isActive ? "bg-gray-700" : ""
-                }`
-              }
-            >
-              <FaStickyNote />
-             Adoption Request
-            </NavLink> */}
 
             <NavLink
               to="create-donation-campaign"

@@ -1,6 +1,6 @@
 // PetList.jsx
 import { useEffect, useState, useRef, useCallback } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { Link } from "react-router";
 import UseAxios from "../../Hook/UseAxios";
 

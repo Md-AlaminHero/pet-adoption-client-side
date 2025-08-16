@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import axios from 'axios';
-// import useAxios from '../../../hooks/UseAxios';
-// import SocialLogin from '../SocialLogin/SocialLogin';
-// import UseAuth from '../../../Hook/UseAuth';
 import Swal from 'sweetalert2';
 import UseAxios from '../../../Hook/UseAxios';
 import UseAuth from '../../../Hook/UseAuth';
@@ -134,11 +131,11 @@ const Register = () => {
             {errors.role && <p className="text-red-500">Role is required</p>}
 
             <div><a className="link link-hover">Forgot password?</a></div>
-            <button className="btn btn-primary text-black mt-4">Register</button>
+            <button className="btn bg-[#caeb66] text-black mt-4">Register</button>
           </fieldset>
           <p><small>Already have an account? <Link className="btn btn-link" to="/login">Login</Link></small></p>
         </form>
-        {/* <SocialLogin></SocialLogin> */}
+ 
       </div>
     </div>
   );
