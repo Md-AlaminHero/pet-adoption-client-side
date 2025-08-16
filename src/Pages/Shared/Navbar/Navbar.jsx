@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router';
-// import UseAuth from '../../Hook/UseAuth';
 import { FaUserCircle, FaTachometerAlt, FaSignOutAlt } from 'react-icons/fa';
-// import StudyHubLogo from './StudyHubLogo/StudyHubLogo';
-// import UseUserRole from '../../hooks/UseUserRole';
 import Swal from 'sweetalert2';
 import UseUserRole from '../../../Hook/UseUserRole';
 import UseAuth from '../../../Hook/UseAuth';
