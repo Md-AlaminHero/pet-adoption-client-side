@@ -164,7 +164,7 @@ const UpdatePet = () => {
         <textarea {...register('longDesc')} className="textarea textarea-bordered w-full" placeholder="Long Description" />
         {errors.longDesc && <p className="text-red-500">{errors.longDesc.message}</p>}
 
-        <button type="submit" disabled={uploading} className="btn btn-primary w-full mt-4">
+        <button type="submit" disabled={uploading} className="bg-teal-500 text-white px-6 py-3 rounded-lg hover:bg-teal-600 cursor-pointer w-full mt-4">
           Update Pet
         </button>
       </form>

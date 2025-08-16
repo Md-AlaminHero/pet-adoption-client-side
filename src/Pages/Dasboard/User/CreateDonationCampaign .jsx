@@ -125,7 +125,7 @@ const CreateDonationCampaign = () => {
           ></textarea>
         </div>
 
-        <button className="btn btn-primary">Create Campaign</button>
+        <button className="bg-teal-500 text-white px-6 py-3 rounded-lg hover:bg-teal-600 cursor-pointer w-full">Create Campaign</button>
       </form>
     </div>
   );

@@ -157,7 +157,7 @@ const AddPet = () => {
         </div>
 
         {/* Submit */}
-        <button type="submit" className="btn btn-primary w-full">
+        <button type="submit" className="bg-teal-500 text-white px-6 py-3 rounded-lg hover:bg-teal-600 cursor-pointer w-full">
           Add Pet
         </button>
       </form>

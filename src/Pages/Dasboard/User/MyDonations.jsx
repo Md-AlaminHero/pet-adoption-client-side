@@ -69,19 +69,19 @@ const MyDonations = () => {
                   </td>
                   <td className="p-2 border text-center space-x-2">
                     <button
-                      className="bg-blue-500 text-white px-2 py-1 rounded"
+                      className="bg-teal-600 text-white px-2 py-1 rounded"
                       onClick={() => navigate(`/dashboard/user/edit-donation/${c._id}`)}
                     >
                       Edit
                     </button>
                     <button
-                      className="bg-yellow-500 text-white px-2 py-1 rounded"
+                      className="bg-blue-800 text-white px-2 py-1 rounded"
                       onClick={() => togglePause(c._id, c.paused)}
                     >
                       {c.paused ? "Unpause" : "Pause"}
                     </button>
                     <button
-                      className="bg-gray-700 text-white px-2 py-1 rounded"
+                      className="bg-teal-700 text-white px-2 py-1 rounded"
                       onClick={() => openModal(c._id)}
                     >
                       View Donators

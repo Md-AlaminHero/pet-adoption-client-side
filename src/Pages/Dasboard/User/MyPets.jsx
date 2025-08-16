@@ -79,19 +79,19 @@ const MyPets = () => {
                                     <button
                                         onClick={() => handleAdopted(pet._id)}
                                         disabled={pet.adopted}
-                                        className="btn btn-xs btn-success"
+                                        className="btn btn-xs bg-teal-500 text-black"
                                     >
                                         Adopted
                                     </button>
                                     <button
                                         onClick={() => handleDelete(pet._id)}
-                                        className="btn btn-xs btn-error"
+                                        className="btn btn-xs btn-primary"
                                     >
                                         Delete
                                     </button>
                                     <NavLink
                                         to={`/dashboard/user/update-pet/${pet._id}`}
-                                        className="btn btn-xs btn-info"
+                                        className="btn btn-xs bg-teal-500 text-black"
                                     >
                                         Update
                                     </NavLink>

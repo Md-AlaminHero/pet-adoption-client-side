@@ -27,6 +27,7 @@ import AdminCampaignManager from '../Pages/Dasboard/Admin/AdminCampaignManager '
 import ContactUs from '../Pages/Home/ContactUs';
 import PetGallery from '../Pages/Home/PetGallery';
 import UserProfile from '../Pages/Dasboard/User/UserProfile';
+import ErrorPage from '../Pages/Shared/ErrorPage/ErrorPage';
 
 
 const Router = createBrowserRouter([
@@ -154,6 +155,10 @@ const Router = createBrowserRouter([
             }
 
         ]
+    },
+    {
+        path: '*',
+        Component: ErrorPage
     }
 
 
