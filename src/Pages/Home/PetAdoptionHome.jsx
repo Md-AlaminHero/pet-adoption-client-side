@@ -31,15 +31,15 @@ export default function PetAdoptionHome() {
             <section className=" py-24 px-6">
                 <h2 className="text-3xl font-bold text-center mb-10">Why Adopt?</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <div className=" p-6 rounded-xl shadow-xl">
+                    <div data-aos="flip-left" data-aos-duration="2000" className=" p-6 rounded-xl shadow-xl">
                         <h3 className="font-semibold text-lg mb-2">Save a Life</h3>
                         <p>Every adoption gives a homeless pet a chance to live.</p>
                     </div>
-                    <div className=" p-6 rounded-xl shadow-xl">
+                    <div data-aos="flip-up" data-aos-duration="2000" className=" p-6 rounded-xl shadow-xl">
                         <h3 className="font-semibold text-lg mb-2">Reduce Stray Population</h3>
                         <p>Help control the growing number of stray animals.</p>
                     </div>
-                    <div className=" p-6 rounded-xl shadow-xl">
+                    <div data-aos="flip-right" data-aos-duration="2000" className=" p-6 rounded-xl shadow-xl">
                         <h3 className="font-semibold text-lg mb-2">Unconditional Love</h3>
                         <p>Adopted pets bring joy and companionship for life.</p>
                     </div>
@@ -61,15 +61,15 @@ export default function PetAdoptionHome() {
 
             {/* 4. Success Stories Section */}
             <section className=" py-24 px-6">
-                <h2 className="text-3xl font-bold text-center mb-10">Success Stories</h2>
+                <h2 className="text-3xl font-bold text-center mb-10">What Our Adopters Say 🐾</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                    <div className=" p-6 rounded-xl shadow-2xl ">
+                    <div data-aos="zoom-out-up" data-aos-duration="2000" className=" p-6 rounded-xl shadow-2xl ">
                         <p className="italic">
                             "Adopting Buddy was the best decision we made. He completes our family."
                         </p>
                         <span className="block mt-4 font-semibold">– Sarah, Adopted Buddy</span>
                     </div>
-                    <div className=" p-6 rounded-xl shadow-2xl">
+                    <div data-aos="zoom-out-down" data-aos-duration="2000" className=" p-6 rounded-xl shadow-2xl">
                         <p className="italic">
                             "Mittens brought so much joy into our lives. She’s a sweetheart!"
                         </p>
